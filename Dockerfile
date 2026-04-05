@@ -4,4 +4,4 @@ COPY requirements-culko.txt .
 RUN pip install -r requirements-culko.txt
 COPY . .
 # Start the FastAPI server
-CMD ["uvicorn", "culko_api_server:app", "--host", "0.0.0.0", "--port", "10000"]
+CMD ["uvicorn", "culko_api_server:app", "--host", "0.0.0.0", "--port", "0"]
