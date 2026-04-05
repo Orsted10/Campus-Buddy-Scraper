@@ -62,6 +62,7 @@ def delete_session(session_id: str):
 # =====================================================
 def create_driver():
     opts = Options()
+    opts.page_load_strategy = 'eager'
     opts.add_argument('--headless')
     opts.add_argument('--no-sandbox')
     opts.add_argument('--disable-dev-shm-usage')
@@ -107,9 +108,9 @@ def bg_navigate_to_captcha(session_id: str, uid: str, password: str):
         next_btn.click()
 
         # Step 3: Wait for password field
-        time.sleep(3)
+        time.sleep(0.5) # Short wait for animation/transition
         WebDriverWait(driver, 20).until(
-            EC.presence_of_element_located((By.CSS_SELECTOR, 'input[type="password"]'))
+            EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[type="password"]'))
         )
 
         # Step 4: Grab CAPTCHA image
@@ -156,7 +157,7 @@ def bg_submit_captcha(session_id: str):
         captcha_input.send_keys(captcha_text)
 
         # Submit
-        submit_btn = driver.find_element(By.ID, 'btnSubmit')
+        submit_btn = driver.find_element(By.ID, 'btnLogin')
         submit_btn.click()
 
         time.sleep(4)
